@@ -1,47 +1,24 @@
-document.getElementById('salaryForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.getElementById('salaryForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let salary = document.getElementById('salary').value;
 
-    const salary = parseFloat(document.getElementById('salaryInput').value);
+    // Додавання нової категорії (для прикладу)
+    let categories = {
+        'На житло': 0.3,
+        'На авто': 0.2,
+        'На майбутнє': 0.5
+    };
 
-    if (isNaN(salary) || salary <= 0) {
-        alert('Будь ласка, введіть коректну суму зарплати.');
-        return;
+    let resultHTML = '<h2>Розбиття зарплати:</h2>';
+    let totalAmount = 0;
+
+    for (let category in categories) {
+        let amount = salary * categories[category];
+        resultHTML += `<div class="category"><span class="category-name">${category}:</span> <span class="category-amount">${amount.toFixed(2)} грн</span></div>`;
+        totalAmount += amount;
     }
 
-    function splitSalary(salary) {
-        const categories = {
-            housing: 0.5,
-            car: 0.3,
-            future: 0.2
-        };
+    resultHTML += `<div class="category"><span class="category-name">Загальна сума:</span> <span class="category-amount">${totalAmount.toFixed(2)} грн</span></div>`;
 
-        const split = {};
-
-        for (let [category, percentage] of Object.entries(categories)) {
-            split[category] = salary * percentage;
-        }
-
-        return split;
-    }
-
-    const myExpenses = splitSalary(salary);
-    const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = ''; // Очистка результатів перед виведенням нових
-
-    for (let [category, amount] of Object.entries(myExpenses)) {
-        const categoryDiv = document.createElement('div');
-        categoryDiv.classList.add('category');
-
-        const categoryNameSpan = document.createElement('span');
-        categoryNameSpan.classList.add('category-name');
-        categoryNameSpan.textContent = `${category}: `;
-
-        const categoryAmountSpan = document.createElement('span');
-        categoryAmountSpan.classList.add('category-amount');
-        categoryAmountSpan.textContent = `$${amount.toFixed(2)}`;
-
-        categoryDiv.appendChild(categoryNameSpan);
-        categoryDiv.appendChild(categoryAmountSpan);
-        resultDiv.appendChild(categoryDiv);
-    }
+    document.getElementById('result').innerHTML = resultHTML;
 });
