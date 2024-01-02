@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 40px;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+}
+
+#result {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 40px auto;
+}
+
+.category {
+    margin-bottom: 10px;
+}
+
+.category-name {
+    font-weight: bold;
+}
+
+.category-amount {
+    color: #007bff;
+}
